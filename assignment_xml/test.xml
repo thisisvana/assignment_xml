@@ -4,7 +4,7 @@
     <Class>Programing Logic</Class>
     <Instructor>James Finn</Instructor>
 	<Day>Monday</Day>
-	<Time>10:00</Time>
+	<Time><Start>10:00</Start><End>12:00</End></Time>
 	<Description>This course provides a foundation for good problem-solving
 skills focused on web applications programming.</Description>
   </Course>
@@ -12,7 +12,7 @@ skills focused on web applications programming.</Description>
     <Class>PHP 2</Class>
     <Instructor>Joe Crawford</Instructor>
 	<Day>Monday</Day>
-	<Time>01:00</Time>
+	<Time><Start>01:00</Start><End>04:30</End></Time>
 	<Description>Students are introduced to object-oriented programming, and
 given the tools to integrate PHP with other technologies, such as
 AJAX and XML.</Description>
@@ -21,7 +21,7 @@ AJAX and XML.</Description>
     <Class>New Web Technologies</Class>
     <Instructor>James Finn</Instructor>
 	<Day>Tuesday</Day>
-	<Time>01:00</Time>
+	<Time><Start>01:00</Start><End>04:00</End></Time>
 	<Description>This course targets introducing new technologies and trends in
 the web development area.</Description>
   </Course>
@@ -29,7 +29,7 @@ the web development area.</Description>
     <Class>JQuery and Ajax</Class>
     <Instructor>Dan Brooks</Instructor>
 	<Day>Wednesday</Day>
-	<Time>09:00</Time>
+	<Time><Start>09:00</Start><End>12:00</End></Time>
 	<Description>This course builds on the introduction to jQuery students
 received in Term 2, and is for web developers, or desktop
 application developers.</Description>
@@ -38,7 +38,7 @@ application developers.</Description>
     <Class>Project Management 3</Class>
     <Instructor>Patrick Sauriol</Instructor>
 	<Day>Wednesday</Day>
-	<Time>01:00</Time>
+	<Time><Start>01:00</Start><End>03:30</End></Time>
 	<Description>Industry standard project management is used daily in all
 varieties of web work and a necessary tool.</Description>
   </Course>
@@ -46,7 +46,7 @@ varieties of web work and a necessary tool.</Description>
     <Class>Advanced Typography and Design</Class>
     <Instructor>Shuwen Chang</Instructor>
 	<Day>Thursday</Day>
-	<Time>09:00</Time>
+	<Time><Start>09:00</Start><End>12:00</End></Time>
 	<Description>This course surveys the development of typographical design
 from its origins to current trends in digital typography.</Description>
   </Course>
@@ -54,7 +54,7 @@ from its origins to current trends in digital typography.</Description>
     <Class>Interface Planning and Design</Class>
     <Instructor>Anne Emberlie</Instructor>
 	<Day>Thursday</Day>
-	<Time>01:00</Time>
+	<Time><Start>01:00</Start><End>04:00</End></Time>
 	<Description>This is a project based course that focuses on students
 implementing web design concepts and graphic skills.</Description>
   </Course>
@@ -62,7 +62,7 @@ implementing web design concepts and graphic skills.</Description>
     <Class>UX Design</Class>
     <Instructor>Shuwen Chang</Instructor>
 	<Day>Friday</Day>
-	<Time>09:00</Time>
+	<Time><Start>09:00</Start><End>12:00</End></Time>
 	<Description>This course introduces the students to user experience design,
 usability design, and interaction design.</Description>
   </Course>
@@ -70,8 +70,8 @@ usability design, and interaction design.</Description>
     <Class>Introduction to Wordpress</Class>
     <Instructor>Anne Emberlie</Instructor>
 	<Day>Friday</Day>
-	<Time>01:00</Time>
+	<Time><Start>10:00</Start><End>12:00</End></Time>
 	<Description>The Introduction to Wordpress course uses hands-on practice,
 demonstrations, in-class assignments, projects, and critiques.</Description>
   </Course>
-</Term3>
+ </Term3>
