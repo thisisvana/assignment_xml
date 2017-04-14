@@ -39,6 +39,23 @@
 
 	}
 
+function callWeather(city){
+	$.ajax({
+		url:"data.php?city=" + city,
+		type:"POST"
+	})
+	.done(function(response){
+		$("#weatherC").html(response);
+	})
+	.fail(function(response){
+		console.log("fail");
+	});
+}
 
-
-	
+$(function(){
+	callWeather("Vancouver");
+	$('#city-select').change(function(){
+		let city = $(this).val();
+		callWeather(city);
+	});
+});

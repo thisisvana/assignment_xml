@@ -50,6 +50,9 @@
         width: 20rem;
         height: 3rem;
       }
+      li {
+        list-style: none;
+      }
 
 		</style>
 
@@ -86,16 +89,61 @@
         </form>
       </div>
       </div>
-      <h3>Weather Today</h3>
-      <form id="weather-form" action="#" method="post">
-        <label for="city-select">Select City</label>
-        <select id="city-select" name="city-select">
-          <option value="vancouver">Vancouver</option>
-          <option value="ny">NY</option>
 
-        </select>
+    <?php
 
-      </form>
+      if(isset($_POST['submit'])) {
+
+        if(!empty($_POST['class-field']) || !empty($_POST['instructor-field']) || !empty($_POST['day-select']) || !empty($_POST['time-field']) || !empty($_POST['description'])){
+          $cvar = $_POST['class-field'];
+          $ivar = $_POST['instructor-field'];
+          $dvar = $_POST['day-select'];
+          $tvar = $_POST['time-field'];
+          $dec = $_POST['description'];
+
+          $xml = new DOMDocument("1.0");
+          $xml = simplexml_load_file("classes.xml");
+
+          $course = $xml->addChild("Course");
+          $position = count($xml->Course)-1;
+          $course_child_1 = $xml->Course[$position]->addChild("Class", $cvar);
+          $course_child_1 = $xml->Course[$position]->addChild("Instructor", $ivar);
+          $course_child_1 = $xml->Course[$position]->addChild("Day", $dvar);
+          $course_child_1 = $xml->Course[$position]->addChild("Time", $tvar);
+          $course_child_1 = $xml->Course[$position]->addChild("Description", $dec);
+
+          $xml->asXML("classes.xml");
+
+          echo "<script>location.replace('schedule.php');</script>";
+
+        }
+
+      }
+
+
+      ?>
+
+
+
+    <div>
+    <h3>Check the weather in your city</h3>
+    <form id="weather-form" action="#" method="post">
+      <label for="city-select">Select City</label>
+      <select id="city-select" name="city-select">
+        <option value="Vancouver">Vancouver</option>
+        <option value="ny">NY</option>
+
+      </select>
+
+    </form>
+
+
+
+    </div>
+    <div id="weatherC">
+
+    </div>
+
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="data.js"></script>

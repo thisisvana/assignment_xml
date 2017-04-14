@@ -1,41 +1,75 @@
 <?php
+// GRAB YAHOO DATA
+// =================
+ $dataNy = simplexml_load_file('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places(1)%20WHERE%20text%20%3D%20%22New%20York%22)%20AND%20u%3D%22c%22&diagnostics=true');
+ $dataV = simplexml_load_file('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places(1)%20WHERE%20text%20%3D%20%22Vancouver%22)%20AND%20u%3D%22c%22&diagnostics=true');
 
 
-  // $cvar= "Pm1";
-  // $ivar= "James Finn";
-  // $dvar = "Monday";
-  // $tvar= "12:00";
-  // $dec = "this is crazy";
+function weather($data){
+
+    $namespace = $data->results->channel->getNamespaces(true);
+
+    // creating $yw shortcut which is referring child elements of channel uses 'yweather' namespace
+    $yw = $data->results->channel->children($namespace['yweather']);
+
+    // WIND
+    // =================
+    $speedUnit = $yw->units->attributes()->speed;
+    $speed = $yw->wind->attributes()->speed;
+    $direction = $yw->wind->attributes()->direction;
+
+    // LOCATION
+    // =================
+    $city = $yw->location->attributes()->city;
+    $country = $yw->location->attributes()->country;
+    $province = $yw->location->attributes()->region;
+
+    // VISIBILITY
+    // =================
+    $visibility = $yw->atmosphere->attributes()->visibility;
+
+    // creating $cw shortcut which is referring child elements of item uses 'yweather' namespace (condition and forecast)
+    $cw = $data->results->channel->item->children($namespace['yweather']);
 
 
+    // TEMPERATURE & CONDITIONS
+    // ==================
+    $current_temp = $cw->condition->attributes()->temp; // get current temperature
+    $temp_unit = $yw->units->attributes()->temperature;
+    $current_condition = $cw->condition->attributes()->text; // get current condition
+
+    // this will get html content encoded as cdata
+    // CDATA
+    // ==================
+    // $desc = $data->results->channel->item->description;
+
+    // Last Updated
+    $last_update = $data->results->channel->lastBuildDate;
+
+    echo "<h3>Current weather condition in ". $city." , ".$province." , ".$country."</h3>";
+    echo "<ul>";
+    echo "<li>Wind speed ". $speed.$speedUnit."</li>";
+    echo "<li>Wind direction ".$direction."</li>";
+    echo "<li>Visibility ".$visibility."</li>";
+    echo "<li>Temperature ".$current_temp."c</li>";
+    echo "<li>Condition ".$current_condition."</li>";
+    echo "</ul>";
 
 
-if(isset($_POST['submit'])) {
-
-  if(!empty($_POST['class-field']) || !empty($_POST['instructor-field']) || !empty($_POST['day-select']) || !empty($_POST['time-field']) || !empty($_POST['description'])){
-    $cvar = $_POST['class-field'];
-    $ivar = $_POST['instructor-field'];
-    $dvar = $_POST['day-select'];
-    $tvar = $_POST['time-field'];
-    $dec = $_POST['description'];
-
-    $xml = new DOMDocument("1.0");
-    $xml = simplexml_load_file("classes.xml");
-
-    $course = $xml->addChild("Course");
-    $position = count($xml->Course)-1;
-    $course_child_1 = $xml->Course[$position]->addChild("Class", $cvar);
-    $course_child_1 = $xml->Course[$position]->addChild("Instructor", $ivar);
-    $course_child_1 = $xml->Course[$position]->addChild("Day", $dvar);
-    $course_child_1 = $xml->Course[$position]->addChild("Time", $tvar);
-    $course_child_1 = $xml->Course[$position]->addChild("Description", $dec);
-
-    $xml->asXML("classes.xml");
-
-    echo "<script>location.replace('schedule.php');</script>";
-
-  }
-
+  //  echo $desc;
+   echo $last_update;
 }
+
+if(isset($_GET['city'])){
+    $city = $_GET['city'];
+    if($city == "Vancouver"){
+      weather($dataV);
+    }
+    else{
+      weather($dataNy);
+    }
+}
+
+
 
 ?>
