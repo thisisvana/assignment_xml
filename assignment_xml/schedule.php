@@ -28,11 +28,16 @@
 				padding:0.5rem 2rem;
 			}
 			th{
-				color: orange;
+				background-color: #f6f6f6;
+        color: #4d4d4d;
 				font-size: 1.3rem;
+        font-weight: 300;
+        height: 4rem;
 			}
+      h1{
+        color: #f6f6f6;
+      }
 			h2{
-
 				color: #4d4d4d;
 			}
       textarea {
@@ -42,7 +47,7 @@
       }
       form, .wform {
         background-color: #f6f6f6;
-        opacity: 0.9;
+        opacity: 0.8;
         margin-top: 2rem;
         display: flex;
         align-items: center;
@@ -55,11 +60,13 @@
       }
       input, select, button {
         width: 20rem;
+        font-size: 0.9rem;
         height: 3rem;
         border: 0.1rem solid #4d4d4d;
       }
       li {
         list-style: none;
+        border: 0.1rem solid #4d4d4d;
       }
       .bg {
         background: url('img/vancity.jpg');
@@ -70,6 +77,10 @@
 				color: #4d4d4d;
         opacity: 0.9;
       }
+      .icons{
+        font-size: 2rem;
+        padding: 0.4rem 1rem;
+      }
 
 		</style>
 
@@ -77,10 +88,9 @@
 	<body class='bg' onLoad="sendXmlRequest('classes.xml')">
 
     <div class="schedule">
-  		<h2>Web Dev 11 - Term 3</h2>
+  		<h1><i class="icons fa fa-calendar" aria-hidden="true"></i>Web Dev 11 - Term 3 Schedule</h1>
       <div class="table-container large-8">
         <table id="course_tb"></table>
-
       </div>
     </div>
       <div class="form-container">
@@ -147,9 +157,9 @@
     <h3>Check the weather in your city</h3>
     <form id="weather-form" action="#" method="post">
       <label for="city-select">Select City</label>
-      <select id="city-select" name="city-select">
-        <option value="Vancouver">Vancouver</option>
-        <option value="ny">NY</option>
+      <select id="city-select" onchange="showValue(this.value)" name="city-select">
+        <option data-bg="img/vancity.jpg" value="Vancouver">Vancouver</option>
+        <option data-bg="img/ny.jpg" value="ny">NY</option>
 
       </select>
 
