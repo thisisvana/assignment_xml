@@ -16,7 +16,21 @@ function weather($data){
     // =================
     $speedUnit = $yw->units->attributes()->speed;
     $speed = $yw->wind->attributes()->speed;
-    $direction = $yw->wind->attributes()->direction;
+    $direction = $yw->wind->attributes()->direction/45;//deviding the degrees by 45 so i can have 8 compas directions (N,NE,E,SE,S,SW,W,NW)
+
+    //associative array
+    $compassArr = array(0=>'N', 1=>'NE', 2=>'E', 3=>'SE', 4=>'S', 5=>'SW', 6=>'W', 7=>'NW', 8=>'N');// North is twice in the array because North is 360deg and 0deg
+    $direction = intval($direction);
+    //looping through associative array
+    foreach($compassArr as $x => $x_value){
+      if($direction === $x){ //check if the integer wind direction is equal to the key
+        $direction = $x_value; //if equal assign the value to direction
+
+      }
+    }
+    // if(array_key_exists($direction, $compassArr)){
+    //   echo $direction;
+    // }
 
     // LOCATION
     // =================
@@ -41,32 +55,29 @@ function weather($data){
     // this will get html content encoded as cdata
     // CDATA
     // ==================
-    // $desc = $data->results->channel->item->description;
 
     // Last Updated
     $last_update = $data->results->channel->lastBuildDate;
-
+    //displaying the weather information
     echo "<h3>Current weather condition in ". $city." , ".$province." , ".$country."</h3>";
     echo "<ul>";
-    echo "<li>Wind speed ". $speed.$speedUnit."</li>";
-    echo "<li>Wind direction ".$direction."</li>";
-    echo "<li>Visibility ".$visibility."</li>";
-    echo "<li>Temperature ".$current_temp."c</li>";
-    echo "<li>Condition ".$current_condition."</li>";
+    echo "<li><i class='icons fa fa-fighter-jet' aria-hidden='true'></i>Wind speed - ". $speed.$speedUnit."</li>";
+    echo "<li><i class='icons fa fa-compass' aria-hidden='true'></i>Wind direction - ".$direction."</li>";
+    echo "<li><i class='icons fa fa-low-vision' aria-hidden='true'></i>Visibility - ".$visibility."</li>";
+    echo "<li><i class='icons fa fa-thermometer-half' aria-hidden='true'></i>Temperature - ".$current_temp."c</li>";
+    echo "<li><i class='icons fa fa-cloud' aria-hidden='true'></i>Condition - ".$current_condition."</li>";
     echo "</ul>";
-
-
-  //  echo $desc;
-   echo $last_update;
+    echo $last_update;
 }
 
-if(isset($_GET['city'])){
+if(isset($_GET['city'])){ //checking if get request is set
+
     $city = $_GET['city'];
-    if($city == "Vancouver"){
+    if($city == "Vancouver"){ //if Vancouver, calling the function weather and passing the data for Vancouver as an argument for the data parameter
       weather($dataV);
     }
     else{
-      weather($dataNy);
+      weather($dataNy);// else passing the data for New York
     }
 }
 
