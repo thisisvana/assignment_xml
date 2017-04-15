@@ -20,8 +20,8 @@
 		var xmlDoc = xml.responseXML;
 		var x = xmlDoc.getElementsByTagName("Course");
 		var table="<tr><th>Class</th><th>Instructor</th><th>Day</th><th>Time</th><th>Description</th></tr>";
-		var dayArr = ["Monday", "Tuesday", "Wednesday"]
-		var formD = "";
+		// var dayArr = ["Monday", "Tuesday", "Wednesday"]
+		// var formD = "";
 		for(var i = 0; i < x.length; i++) {
 			table += "<tr><td>" +
 		    x[i].getElementsByTagName("Class")[0].childNodes[0].nodeValue +
@@ -54,8 +54,16 @@ function callWeather(city){
 
 $(function(){
 	callWeather("Vancouver");
+
 	$('#city-select').change(function(){
 		let city = $(this).val();
 		callWeather(city);
+		changeBg( $('option:selected', this).data('bg') );
+
 	});
 });
+
+//change the background color based on the data-bg attribute
+function changeBg(bg) {
+    $(".bg").css('background-image', 'url("' + bg + '")');
+}
